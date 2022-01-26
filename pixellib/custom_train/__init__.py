@@ -126,8 +126,8 @@ class instance_custom_training:
                              
         
     def evaluate_model(self, model_path, iou_threshold = 0.5):
-        self.model = MaskRCNN(mode = "inference", model_dir = os.getcwd(), config = self.config)  
-	model_files = ''
+        self.model = MaskRCNN(mode = "inference", model_dir = os.getcwd(), config = self.config)
+        model_files = ''
         if os.path.isfile(model_path):
             model_files = [model_path]
              
