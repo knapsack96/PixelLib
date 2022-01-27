@@ -107,7 +107,7 @@ class instance_custom_training:
 
         else:
             if augmentation == True:
-                augmentation = imgaug.augmenters.Sometimes(0.5, [
+                augmentation = imgaug.augmenters.Sometimes(1, [
 			        imgaug.augmenters.Fliplr(0.5),
 			        iaa.Flipud(0.5),
 			        imgaug.augmenters.GaussianBlur(sigma=(0.0, 5.0))
