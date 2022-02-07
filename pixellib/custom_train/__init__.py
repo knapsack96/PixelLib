@@ -109,7 +109,7 @@ class instance_custom_training:
             if augmentation == True:
                 augmentation = imgaug.augmenters.Sequential(imgaug.augmenters.Sometimes(1, [
 			        imgaug.augmenters.Fliplr(0.5),
-			        iaa.Flipud(0.5))
+			        iaa.Flipud(0.5)
 			        ]))
                 print("Applying Default Augmentation on Dataset")
 
