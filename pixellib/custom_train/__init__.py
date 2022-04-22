@@ -158,7 +158,7 @@ class instance_custom_training:
 	        # calculate the mean AP across all images
             mAP = np.mean(APs)
             print(modelfile, "evaluation using iou_threshold", iou_threshold, "is", f"{mAP:01f}", '\n')
-	    print("number of true positive:", acc)
+            print("number of true positive:", acc)
                     
         
 
