@@ -739,7 +739,9 @@ def compute_ap(gt_boxes, gt_class_ids, gt_masks,
     mAP = np.sum((recalls[indices] - recalls[indices - 1]) *
                  precisions[indices])
     matchess = np.sum(gt_match > -1)
-    return mAP, precisions, recalls, overlaps, matchess
+    fn = np.sum(gt_match == -1)
+    fp = np.sum(pred_match == -1)
+    return mAP, precisions, recalls, overlaps, matchess, fn, fp
 
 
 def compute_ap_range(gt_box, gt_class_id, gt_mask,
