@@ -150,7 +150,7 @@ class instance_custom_training:
 		        # extract results for first sample
                 r = yhat[0]
 		        # calculate statistics, including AP
-                AP, _, _, _, matchess = compute_ap(gt_bbox, gt_class_id, gt_mask, r["rois"], r["class_ids"], r["scores"], r['masks'],
+                AP, _, _, _, matchess, fn, fp = compute_ap(gt_bbox, gt_class_id, gt_mask, r["rois"], r["class_ids"], r["scores"], r['masks'],
                 iou_threshold=iou_threshold)
 		        # store
                 APs.append(AP)
@@ -159,6 +159,8 @@ class instance_custom_training:
             mAP = np.mean(APs)
             print(modelfile, "evaluation using iou_threshold", iou_threshold, "is", f"{mAP:01f}", '\n')
             print("number of true positive:", acc)
+	    print("number of false negative:", fn)
+	    print("number of false positive:", fp)
                     
         
 
