@@ -159,8 +159,8 @@ class instance_custom_training:
             mAP = np.mean(APs)
             print(modelfile, "evaluation using iou_threshold", iou_threshold, "is", f"{mAP:01f}", '\n')
             print("number of true positive:", acc)
-	    print("number of false negative:", fn)
-	    print("number of false positive:", fp)
+            print("number of false negative:", fn)
+            print("number of false positive:", fp)
                     
         
 
