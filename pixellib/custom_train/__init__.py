@@ -126,7 +126,7 @@ class instance_custom_training:
         print('Validate %d' % len(self.dataset_test.image_ids), "images")
 
         self.model.train(self.dataset_train, self.dataset_test,models = path_trained_models, augmentation = augmentation, 
-        epochs=num_epochs,layers=layers)
+        epochs=num_epochs,layers='heads') #ho messo heads in layers per fare il finetuning
                              
         
     def evaluate_model(self, model_path, iou_threshold = 0.5):
