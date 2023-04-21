@@ -158,7 +158,30 @@ class instance_custom_training:
 	        # calculate the mean AP across all images
             mAP = np.mean(APs)
             print(modelfile, "evaluation using iou_threshold", iou_threshold, "is", f"{mAP:01f}", '\n')
-                    
+
+    def evaluate_model_qgis(self, iou_threshold = 0.5):
+
+        APs = []
+        labelme_folder3 = os.path.abspath(os.path.join(dataset, "train"))
+
+        #dir where the converted json files will be saved
+        save_json_path3 = os.path.abspath(os.path.join(dataset, "qgis.json"))
+        qgis_test = Data()
+        qgis_test.load_data(save_json_path3, labelme_folder3)
+        qgis_test.prepare()
+	for (image_id,qgis_img_id) in zip(self.dataset_test.image_ids,qgis_test.image_ids):                                                                                                                                                                                                                                                                                                                                                                             
+            # load image, bounding boxes and masks for the image id
+            image, image_meta, gt_class_id, gt_bbox, gt_mask = load_image_gt(self.dataset_test, self.config, image_id)
+            qgis_image, qgis_image_meta, qgis_class_id, qgis_bbox, qgis_mask = load_image_gt(qgis_test, self.config, qgis_img_id)
+            AP, _, _, _, gt_match, pred_match = compute_ap(gt_bbox, gt_class_id, gt_mask, qgis_bbox, qgis_class_id, [0 for i in range(len(qgis_class_id))], qgis_mask,
+            iou_threshold=iou_threshold)
+		        # store
+            APs.append(AP)
+            print('image id:',image_id,'gt match:',gt_match,'pred match:',pred_match,'AP:',AP,'gt class id:',gt_class_id,'r class id:',qgis_class_id)
+            #acc += matchess
+	    # calculate the mean AP across all images
+        mAP = np.mean(APs)
+        print(modelfile, "evaluation using iou_threshold", iou_threshold, "is", f"{mAP:01f}", '\n')
         
 
 ############################################################
