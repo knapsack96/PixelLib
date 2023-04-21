@@ -35,7 +35,10 @@ import colorsys
 class instance_custom_training:
     def __init__(self):
         self.model_dir = os.getcwd()
-
+        for name, param in model.named_parameters():
+            print(name,param.requires_grad)
+            #if param.requires_grad and name != "module.update_block.mask.2.weight":
+        #param.requires_grad = False
         
     def modelConfig(self,network_backbone = "resnet101",  num_classes =  1,  class_names = ["BG"], batch_size = 1, detection_threshold = 0.7, image_max_dim = 512, image_min_dim = 512, image_resize_mode ="square", gpu_count = 1):
         self.config = Config(BACKBONE = network_backbone, NUM_CLASSES = 1 +  num_classes,  class_names = class_names, 
