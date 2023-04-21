@@ -35,10 +35,6 @@ import colorsys
 class instance_custom_training:
     def __init__(self):
         self.model_dir = os.getcwd()
-        #for name, param in model.named_parameters():
-            #print(name,param.requires_grad)
-            #if param.requires_grad and name != "module.update_block.mask.2.weight":
-        #param.requires_grad = False
         
     def modelConfig(self,network_backbone = "resnet101",  num_classes =  1,  class_names = ["BG"], batch_size = 1, detection_threshold = 0.7, image_max_dim = 512, image_min_dim = 512, image_resize_mode ="square", gpu_count = 1):
         self.config = Config(BACKBONE = network_backbone, NUM_CLASSES = 1 +  num_classes,  class_names = class_names, 
@@ -55,8 +51,6 @@ class instance_custom_training:
         self.model = modellib.MaskRCNN(mode="training", model_dir = self.model_dir, config = self.config)
         self.model.load_weights(model_path, by_name=True, exclude=["mrcnn_class_logits", "mrcnn_bbox_fc",  "mrcnn_bbox", 
         "mrcnn_mask"])
-        #for name, param in self.model.named_parameters():
-            #print(name,param.requires_grad)
     
     
     def load_dataset(self, dataset):
@@ -126,7 +120,7 @@ class instance_custom_training:
         print('Validate %d' % len(self.dataset_test.image_ids), "images")
 
         self.model.train(self.dataset_train, self.dataset_test,models = path_trained_models, augmentation = augmentation, 
-        epochs=num_epochs,layers='heads') #ho messo heads in layers per fare il finetuning
+        epochs=num_epochs,layers='heads')
                              
         
     def evaluate_model(self, model_path, iou_threshold = 0.5):
