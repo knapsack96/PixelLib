@@ -55,8 +55,8 @@ class instance_custom_training:
         self.model = modellib.MaskRCNN(mode="training", model_dir = self.model_dir, config = self.config)
         self.model.load_weights(model_path, by_name=True, exclude=["mrcnn_class_logits", "mrcnn_bbox_fc",  "mrcnn_bbox", 
         "mrcnn_mask"])
-        for name, param in self.model.named_parameters():
-            print(name,param.requires_grad)
+        #for name, param in self.model.named_parameters():
+            #print(name,param.requires_grad)
     
     
     def load_dataset(self, dataset):
