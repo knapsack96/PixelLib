@@ -181,7 +181,7 @@ class instance_custom_training:
             #acc += matchess
 	    # calculate the mean AP across all images
         mAP = np.mean(APs)
-        print(modelfile, "evaluation using iou_threshold", iou_threshold, "is", f"{mAP:01f}", '\n')
+        print("evaluation using iou_threshold", iou_threshold, "is", f"{mAP:01f}", '\n')
         
 
 ############################################################
