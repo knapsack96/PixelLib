@@ -169,7 +169,7 @@ class instance_custom_training:
         qgis_test = Data()
         qgis_test.load_data(save_json_path3, labelme_folder3)
         qgis_test.prepare()
-	for (image_id,qgis_img_id) in zip(self.dataset_test.image_ids,qgis_test.image_ids):                                                                                                                                                                                                                                                                                                                                                                             
+        for (image_id,qgis_img_id) in zip(self.dataset_test.image_ids,qgis_test.image_ids):                                                                                                                                                                                                                                                                                                                                                                             
             # load image, bounding boxes and masks for the image id
             image, image_meta, gt_class_id, gt_bbox, gt_mask = load_image_gt(self.dataset_test, self.config, image_id)
             qgis_image, qgis_image_meta, qgis_class_id, qgis_bbox, qgis_mask = load_image_gt(qgis_test, self.config, qgis_img_id)
