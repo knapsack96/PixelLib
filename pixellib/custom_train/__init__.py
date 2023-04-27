@@ -159,7 +159,7 @@ class instance_custom_training:
             mAP = np.mean(APs)
             print(modelfile, "evaluation using iou_threshold", iou_threshold, "is", f"{mAP:01f}", '\n')
 
-    def evaluate_model_qgis(self, iou_threshold = 0.5):
+    def evaluate_model_qgis(self, dataset, iou_threshold = 0.5):
 
         APs = []
         labelme_folder3 = os.path.abspath(os.path.join(dataset, "train"))
