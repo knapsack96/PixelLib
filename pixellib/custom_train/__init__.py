@@ -173,6 +173,7 @@ class instance_custom_training:
             # load image, bounding boxes and masks for the image id
             image, image_meta, gt_class_id, gt_bbox, gt_mask = load_image_gt(self.dataset_test, self.config, image_id)
             qgis_image, qgis_image_meta, qgis_class_id, qgis_bbox, qgis_mask = load_image_gt(qgis_test, self.config, qgis_img_id)
+            print( qgis_class_id, [0 for i in range(len(qgis_class_id))])
             AP, _, _, _, gt_match, pred_match = compute_ap(gt_bbox, gt_class_id, gt_mask, qgis_bbox, qgis_class_id, [0 for i in range(len(qgis_class_id))], qgis_mask,
             iou_threshold=iou_threshold)
 		        # store
