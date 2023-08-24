@@ -677,6 +677,7 @@ def compute_matches(gt_boxes, gt_class_ids, gt_masks,
     match_count = 0
     pred_match = -1 * np.ones([pred_boxes.shape[0]])
     gt_match = -1 * np.ones([gt_boxes.shape[0]])
+    print("nuova immagine")
     for i in range(len(pred_boxes)):
         # Find best matching ground truth box
         # 1. Sort matches by score
