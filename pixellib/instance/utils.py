@@ -700,7 +700,8 @@ def compute_matches(gt_boxes, gt_class_ids, gt_masks,
                 gt_match[j] = i
                 pred_match[i] = j
                 break
-
+            else:
+                print("Target of class "+str(gt_class_ids[j])+" has been confused with "+str(pred_class_ids[i]))
     return gt_match, pred_match, overlaps
 
 
