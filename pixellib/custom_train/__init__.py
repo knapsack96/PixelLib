@@ -154,6 +154,7 @@ class instance_custom_training:
 		        # store
                 APs.append(AP)
                 print('image id:',image_id,'gt match:',gt_match,'pred match:',pred_match,'AP:',AP,'gt class id:',gt_class_id,'r class id:',r["class_ids"])
+		
                 #acc += matchess
 	        # calculate the mean AP across all images
             mAP = np.mean(APs)
