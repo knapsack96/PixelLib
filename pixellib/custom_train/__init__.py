@@ -137,6 +137,7 @@ class instance_custom_training:
             APs = []
             #outputs = list()
             acc = 0
+	    conf_matrix_ = np.ones((10,10))
             for image_id in self.dataset_test.image_ids:                                                                                                                                                                                                                                                                                                                                                                             
                 # load image, bounding boxes and masks for the image id
                 image, image_meta, gt_class_id, gt_bbox, gt_mask = load_image_gt(self.dataset_test, self.config, image_id)
@@ -154,7 +155,13 @@ class instance_custom_training:
 		        # store
                 APs.append(AP)
                 print('image id:',image_id,'gt match:',gt_match,'pred match:',pred_match,'AP:',AP,'gt class id:',gt_class_id,'r class id:',r["class_ids"])
-		
+		for wp in range(len(gt_match)):
+			if gt_match[wp] != -1:
+				if r["class_ids"][gt_match[wp]] == gt_class_id[wp]:
+					conf_matrix_[gt_class_id[wp]][gt_class_id[wp]] += 1
+				else:
+					conf_matrix_[gt_class_id[wp]][r["class_ids"][gt_match[wp]]] += 1
+					
                 #acc += matchess
 	        # calculate the mean AP across all images
             mAP = np.mean(APs)
