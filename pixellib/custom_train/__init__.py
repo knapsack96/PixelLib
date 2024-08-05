@@ -155,8 +155,10 @@ class instance_custom_training:
 		        # store
                 APs.append(AP)
                 print('image id:',image_id,'gt match:',gt_match,'pred match:',pred_match,'AP:',AP,'gt class id:',gt_class_id,'r class id:',r["class_ids"])
+		
 		for wp in range(len(gt_match)):
 			if gt_match[wp] != -1:
+				
 				if r["class_ids"][gt_match[wp]] == gt_class_id[wp]:
 					conf_matrix_[gt_class_id[wp]][gt_class_id[wp]] += 1
 				else:
@@ -166,6 +168,7 @@ class instance_custom_training:
 	        # calculate the mean AP across all images
             mAP = np.mean(APs)
             print(modelfile, "evaluation using iou_threshold", iou_threshold, "is", f"{mAP:01f}", '\n')
+	    print(conf_matrix_)
 
     def evaluate_model_qgis(self, dataset, iou_threshold = 0.5):
 
