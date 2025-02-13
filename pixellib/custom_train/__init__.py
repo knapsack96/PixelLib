@@ -123,52 +123,56 @@ class instance_custom_training:
         epochs=num_epochs,layers="all")
                              
         
-    def evaluate_model(self, model_path, iou_threshold = 0.5):
-        self.model = MaskRCNN(mode = "inference", model_dir = os.getcwd(), config = self.config)
+    def evaluate_model(self, model_path, iou_threshold=0.5):
+        self.model = MaskRCNN(mode="inference", model_dir=os.getcwd(), config=self.config)
         model_files = ''
+    
         if os.path.isfile(model_path):
             model_files = [model_path]
-             
+
         if os.path.isdir(model_path):
             model_files = sorted([os.path.join(model_path, file_name) for file_name in os.listdir(model_path)])
+    
         for modelfile in model_files:
             if str(modelfile).endswith(".h5"):
                 self.model.load_weights(modelfile, by_name=True)
+        
             APs = []
-            #outputs = list()
+            # outputs = list()
             acc = 0
-	    conf_matrix_ = np.ones((10,10))
-            for image_id in self.dataset_test.image_ids:                                                                                                                                                                                                                                                                                                                                                                             
+            conf_matrix_ = np.ones((10, 10))  # Indentato correttamente
+            for image_id in self.dataset_test.image_ids:
                 # load image, bounding boxes and masks for the image id
                 image, image_meta, gt_class_id, gt_bbox, gt_mask = load_image_gt(self.dataset_test, self.config, image_id)
                 # convert pixel values (e.g. center)
                 scaled_image = mold_image(image, self.config)
                 # convert image into one sample
                 sample = np.expand_dims(scaled_image, 0)
-		        # make prediction
+                # make prediction
                 yhat = self.model.detect(sample, verbose=0)
-		        # extract results for first sample
+                # extract results for first sample
                 r = yhat[0]
-		        # calculate statistics, including AP
+                # calculate statistics, including AP
                 AP, _, _, _, gt_match, pred_match = compute_ap(gt_bbox, gt_class_id, gt_mask, r["rois"], r["class_ids"], r["scores"], r['masks'],
-                iou_threshold=iou_threshold)
-		        # store
+                                                           iou_threshold=iou_threshold)
+                # store
                 APs.append(AP)
-                print('image id:',image_id,'gt match:',gt_match,'pred match:',pred_match,'AP:',AP,'gt class id:',gt_class_id,'r class id:',r["class_ids"])
-		
-		for wp in range(len(gt_match)):
-			if gt_match[wp] != -1:
-				
-				if r["class_ids"][gt_match[wp]] == gt_class_id[wp]:
-					conf_matrix_[gt_class_id[wp]][gt_class_id[wp]] += 1
-				else:
-					conf_matrix_[gt_class_id[wp]][r["class_ids"][gt_match[wp]]] += 1
-					
-                #acc += matchess
-	        # calculate the mean AP across all images
+                print('image id:', image_id, 'gt match:', gt_match, 'pred match:', pred_match, 'AP:', AP, 'gt class id:', gt_class_id, 'r class id:', r["class_ids"])
+
+                for wp in range(len(gt_match)):
+                    if gt_match[wp] != -1:
+                        if r["class_ids"][gt_match[wp]] == gt_class_id[wp]:
+                            conf_matrix_[gt_class_id[wp]][gt_class_id[wp]] += 1
+                        else:
+                            conf_matrix_[gt_class_id[wp]][r["class_ids"][gt_match[wp]]] += 1
+                        
+            # calculate the mean AP across all images
             mAP = np.mean(APs)
             print(modelfile, "evaluation using iou_threshold", iou_threshold, "is", f"{mAP:01f}", '\n')
-	    print(conf_matrix_)
+        
+            # print(conf_matrix_) Indentato correttamente
+            print(conf_matrix_)
+
 
     def evaluate_model_qgis(self, dataset, iou_threshold = 0.5):
 
