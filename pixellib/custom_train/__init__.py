@@ -61,7 +61,7 @@ class instance_custom_training:
         
         #conversion of individual labelme json files into a single json file        
         #labelme2coco.convert(labelme_folder1, save_json_path1)
-        
+        print(save_json_path1, labelme_folder1)
         # Training dataset.
         self.dataset_train = Data()
         self.dataset_train.load_data(save_json_path1, labelme_folder1)
@@ -76,7 +76,7 @@ class instance_custom_training:
         
         #conversion of individual labelme json files into a single json file  
         #labelme2coco.convert(labelme_folder2, save_json_path2)
-        
+        print(save_json_path2, labelme_folder2)
         # Training dataset.
         self.dataset_test = Data()
         self.dataset_test.load_data(save_json_path2, labelme_folder2)
@@ -211,7 +211,7 @@ class Data(Dataset):
     def load_data(self,  annotation_json, images_path):
        
         # Load json from file
-        print(annotation_json, images_path)
+        print(images_path)
         json_file = open(annotation_json)
         coco_json = json.load(json_file)
         json_file.close()
@@ -238,7 +238,7 @@ class Data(Dataset):
 
         # Get all images and add them to the dataset
         seen_images = {}
-        print(coco_json)
+        #print(coco_json)
         print(coco_json['images'])
         for image in coco_json['images']:
             image_id = image['id']
