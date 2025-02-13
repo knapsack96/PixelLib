@@ -211,7 +211,7 @@ class Data(Dataset):
     def load_data(self,  annotation_json, images_path):
        
         # Load json from file
-        print(annotation_json, image_path)
+        print(annotation_json, images_path)
         json_file = open(annotation_json)
         coco_json = json.load(json_file)
         json_file.close()
