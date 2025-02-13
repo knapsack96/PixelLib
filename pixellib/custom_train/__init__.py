@@ -16,7 +16,7 @@ import imgaug
 import imgaug as ia
 import imageio
 import imgaug.augmenters as iaa
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from pixellib.instance.mask_rcnn import MaskRCNN
 from pixellib.instance.mask_rcnn import load_image_gt
 from pixellib.instance.mask_rcnn import log
