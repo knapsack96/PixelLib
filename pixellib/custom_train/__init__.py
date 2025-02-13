@@ -243,6 +243,7 @@ class Data(Dataset):
                 print("Warning: Skipping duplicate image id: {}".format(image))
             else:
                 seen_images[image_id] = image
+                image_file_name = None
                 try:
                     image_file_name = image['file_name']
                     image_width = image['width']
