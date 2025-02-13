@@ -211,7 +211,7 @@ class Data(Dataset):
     def load_data(self,  annotation_json, images_path):
        
         # Load json from file
-        print(images_path)
+        #print(images_path)
         json_file = open(annotation_json)
         coco_json = json.load(json_file)
         json_file.close()
@@ -239,7 +239,7 @@ class Data(Dataset):
         # Get all images and add them to the dataset
         seen_images = {}
         #print(coco_json)
-        print(coco_json['images'])
+        #print(coco_json['images'])
         for image in coco_json['images']:
             image_id = image['id']
             if image_id in seen_images:
